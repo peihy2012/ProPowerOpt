@@ -234,13 +234,13 @@ for iter=1:max_iter
     display(['At the iteration ', num2str(iter), ' there are ', num2str(Archive_member_no), ' non-dominated solutions in the archive']);
 end
 % delete(powerFlowPar);
-figure(2)
-% Draw_ZDT1();
-hold on
-if obj_no==2
-    plot(Archive_F(:,1),Archive_F(:,2),'ko','MarkerSize',8,'markerfacecolor','k');
-else
-    plot3(Archive_F(:,1),Archive_F(:,2),Archive_F(:,3),'ko','MarkerSize',8,'markerfacecolor','k');
-end
-% legend('True PF','Obtained PF');
-title('MODA');
+% figure(2)
+% % Draw_ZDT1();
+% hold on
+% if obj_no==2
+%     plot(Archive_F(:,1),Archive_F(:,2),'ko','MarkerSize',8,'markerfacecolor','k');
+% else
+%     plot3(Archive_F(:,1),Archive_F(:,2),Archive_F(:,3),'ko','MarkerSize',8,'markerfacecolor','k');
+% end
+% % legend('True PF','Obtained PF');
+% title('MODA');
