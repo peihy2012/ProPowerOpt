@@ -19,8 +19,8 @@ else
     obj.N = xnum;                  % size of swarm (or population)
     obj.maxGen = gen;              % maximum of iteration
 
-    obj.lb = u_b;                  % lower boundary the control variables
-    obj.ub = l_b;                  % upper boundary the control variables               
+    obj.ub = u_b;                  % lower boundary the control variables
+    obj.lb = l_b;                  % upper boundary the control variables               
     obj.X = initX(xnum,xdim,u_b,l_b);             % swarm (or set) of control variables (position)
     obj.fitness = zeros(xnum,funcnum);                     % fitness of control variables
     obj.DeltaX = initX(xnum,xdim,u_b,l_b);        % step of control variables

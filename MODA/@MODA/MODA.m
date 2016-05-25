@@ -19,6 +19,7 @@ classdef MODA < handle
         Archive_X       % archive of control variables X
         Archive_F       % archive of functions
         ArchiveSize     % archive size
+        Particles_F     % function value of the particles ( X )
         
         R         % radius of neighbourhood
         maxV      % maximum of velocity
@@ -50,10 +51,10 @@ classdef MODA < handle
             end
         end
         obj = init(obj, mopt);
-        obj = runopt(obj, Snew);
-        
-
-        
+        % obj = runopt(obj, Snew);
+        obj = getfront(obj);
+        obj = operation(obj,iter);
+        plot(obj,iter,varargin)
     end
     
 end
