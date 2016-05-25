@@ -20,7 +20,7 @@ pf.makeSbus();
 pf.initPowerflow();
 
 %% Change these details with respect to your problem%%%%%%%%%%%%%%
-ObjectiveFunction=@RPOF;
+ObjectiveFunction=@RPOF1;
 dim=5;
 lb=0;
 ub=15;
@@ -48,6 +48,10 @@ fitness=zeros(N,2);
 DeltaX=initialization(N,dim,ub,lb);
 iter=0;
 position_history=zeros(N,max_iter,dim);
+
+% mo = MODA(@RPOF1);
+% mo.init();
+% mo.runopt(Snew);
 % 
 % powerFlowPar = parpool;
 for iter=1:max_iter
