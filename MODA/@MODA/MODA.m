@@ -51,7 +51,6 @@ classdef MODA < handle
             end
         end
         obj = init(obj, mopt);
-        % obj = runopt(obj, Snew);
         obj = getfront(obj);
         obj = operation(obj,iter);
         plot(obj,iter,varargin)

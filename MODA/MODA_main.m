@@ -49,20 +49,18 @@ DeltaX=initialization(N,dim,ub,lb);
 iter=0;
 position_history=zeros(N,max_iter,dim);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-mo = MODA(@RPOF1);
-mo.init();
-for iter = 1:100
-    for i=1:mo.N 
-        mo.Particles_F(i,:) = ObjectiveFunction(mo.X(:,i)', pf, Snew);
-    end
-    mo.getfront();
-    mo.operation(iter);
-    mo.plot(iter);
-    display(['Iteration = ', num2str(iter), ' , ', num2str(mo.ArchiveSize), ' non-dominated solutions']);
-    pause(0.05);
-end
-
+% mo = MODA(@RPOF1);
+% mo.init();
+% for iter = 1:100
+%     for i=1:mo.N 
+%         mo.Particles_F(i,:) = ObjectiveFunction(mo.X(:,i)', pf, Snew);
+%     end
+%     mo.getfront();
+%     mo.operation(iter);
+%     mo.plot(iter);
+%     display(['Iteration = ', num2str(iter), ' , ', num2str(mo.ArchiveSize), ' non-dominated solutions']);
+%     pause(0.05);
+% end
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % powerFlowPar = parpool;
 for iter=1:max_iter

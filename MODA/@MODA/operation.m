@@ -87,33 +87,43 @@ function obj = operation( obj,iter )
                 obj.DeltaX(tt,i)=rand;
             end
         end
-        if any(Dist2Attraction>obj.R)
-            if neighbours_no>1
-                for j=1:obj.dim
-                    obj.DeltaX(j,i)=w*obj.DeltaX(j,i)+rand*A(j,1)+rand*C(j,1)+rand*S(j,1);
-                    if obj.DeltaX(j,i)>obj.maxV
-                        obj.DeltaX(j,i)=obj.maxV;
-                    end
-                    if obj.DeltaX(j,i)<-obj.maxV
-                        obj.DeltaX(j,i)=-obj.maxV;
-                    end
-                    obj.X(j,i)=obj.X(j,i)+obj.DeltaX(j,i);
-                end      
+        if any( Dist2Attraction > obj.R )
+            if neighbours_no > 1
+                obj.DeltaX(:,i)=w*obj.DeltaX(:,i)+rand*A(:,1)+rand*C(:,1)+rand*S(:,1);
+                Flag4uV = obj.DeltaX(:,i) > obj.maxV';
+                Flag4lV = obj.DeltaX(:,i) < -obj.maxV';
+                obj.DeltaX(:,i)=(obj.DeltaX(:,i).*(~(Flag4uV+Flag4lV))) + obj.maxV'.*Flag4uV - obj.maxV'.*Flag4lV; 
+                obj.X(:,i)=obj.X(:,i)+obj.DeltaX(:,i);
+%                 for j=1:obj.dim
+%                     obj.DeltaX(j,i)=w*obj.DeltaX(j,i)+rand*A(j,1)+rand*C(j,1)+rand*S(j,1);
+%                     if obj.DeltaX(j,i)>obj.maxV
+%                         obj.DeltaX(j,i)=obj.maxV;
+%                     end
+%                     if obj.DeltaX(j,i)<-obj.maxV
+%                         obj.DeltaX(j,i)=-obj.maxV;
+%                     end
+%                     obj.X(j,i)=obj.X(j,i)+obj.DeltaX(j,i);
+%                 end     
             else
                 obj.X(:,i)=obj.X(:,i)+Levy(obj.dim)'.*obj.X(:,i);
                 obj.DeltaX(:,i)=0;
             end
-        else    
-            for j=1:obj.dim
-                obj.DeltaX(j,i)=s*S(j,1)+a*A(j,1)+c*C(j,1)+f*F(j,1)+e*E(j,1) + w*obj.DeltaX(j,i);
-                if obj.DeltaX(j,i)>obj.maxV
-                    obj.DeltaX(j,i)=obj.maxV;
-                end
-                if obj.DeltaX(j,i)<-obj.maxV
-                    obj.DeltaX(j,i)=-obj.maxV;
-                end
-                obj.X(j,i)=obj.X(j,i)+obj.DeltaX(j,i);
-            end
+        else 
+            obj.DeltaX(:,i)=s*S(:,1)+a*A(:,1)+c*C(:,1)+f*F(:,1)+e*E(:,1) + w*obj.DeltaX(:,i);
+            Flag4uV = obj.DeltaX(:,i) > obj.maxV';
+            Flag4lV = obj.DeltaX(:,i) < -obj.maxV';
+            obj.DeltaX(:,i)=(obj.DeltaX(:,i).*(~(Flag4uV+Flag4lV))) + obj.maxV'.*Flag4uV - obj.maxV'.*Flag4lV; 
+            obj.X(:,i)=obj.X(:,i)+obj.DeltaX(:,i);
+%             for j=1:obj.dim
+%                 obj.DeltaX(j,i)=s*S(j,1)+a*A(j,1)+c*C(j,1)+f*F(j,1)+e*E(j,1) + w*obj.DeltaX(j,i);
+%                 if obj.DeltaX(j,i)>obj.maxV
+%                     obj.DeltaX(j,i)=obj.maxV;
+%                 end
+%                 if obj.DeltaX(j,i)<-obj.maxV
+%                     obj.DeltaX(j,i)=-obj.maxV;
+%                 end
+%                 obj.X(j,i)=obj.X(j,i)+obj.DeltaX(j,i);
+%             end
         end
 %% boundary check
         Flag4ub=obj.X(:,i)>obj.ub';
