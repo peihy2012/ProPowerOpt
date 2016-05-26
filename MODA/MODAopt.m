@@ -1,5 +1,3 @@
-
-
 function MODAopt(  )
 %MODAOPT Summary of this function goes here
 %   Detailed explanation goes here
@@ -9,15 +7,19 @@ close all;
 %% power flow initialize
 addpath('.\GridData');
 % global pf Snew
-pf = PowerFlowRadia(busdata33);
-simpleNum = 100000;
+data33 = busdata33;
+pf = PowerFlowRadia(data33);
+sampleNum = 100000;
 %% include Pwind and pwrSmp
-load('Pwind_0512.mat');
-load('pwrSmp_0512.mat');
-windRate = 0.9;
+% load('Pwind_0512.mat');
+% load('pwrSmp_0512.mat');
+% windRate = 0.8;
+% windLoc = 24;
+% phi = acos(windRate);
+% Swind = Pwind.*(1+i*tan(phi));
+pwrSmp = powersample(sampleNum,data33.busdata);
+Swind = windsample(sampleNum,1);
 windLoc = 24;
-phi = acos(windRate);
-Swind = Pwind.*(1+i*tan(phi));
 pwrSmp(windLoc,:) = pwrSmp(windLoc,:) - Swind/4;
 Snew = pwrSmp;
 %% initialize
