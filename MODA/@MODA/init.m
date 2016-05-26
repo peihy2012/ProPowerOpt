@@ -5,7 +5,7 @@ if nargin > 1
     error('the struct "mopt" must be given.')
 else
     % ObjectiveFunc = @ZDT1;
-    funcnum = 2;
+    funcnum = 3;   % objective number
     xdim = 5;
     xnum = 120;
     gen = 100;
