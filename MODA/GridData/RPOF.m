@@ -17,7 +17,7 @@ simpleNum = 10000;
 % pf.makeSbus();
 % pf.initPowerflow();
 % global pf Snew
-nodeloc = [5 13 20 23 31];
+nodeloc = [6 13 17 23 31];
 Qc = zeros(pf.nb,1);
 Qc(nodeloc) = round(X)*0.06*1j;
 %% power flow
@@ -82,7 +82,10 @@ plogp = -p .* log2(p);
 % Hmax = 
 % entropy with deviation weight
 wHL = sum( plogp.*xloss', 1);   
-o = [sum(wHL), sum(wH)];
+
+cap = sum(round(X))*0.05;
+
+o = [sum(wHL), sum(wH) ,cap];
 
 end
 
