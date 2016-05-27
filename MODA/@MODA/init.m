@@ -4,7 +4,6 @@ function obj = init( obj, mopt )
 if nargin > 1
     error('the struct "mopt" must be given.')
 else
-    % ObjectiveFunc = @ZDT1;
     funcnum = 3;   % objective number
     xdim = 5;
     xnum = 120;
@@ -13,7 +12,7 @@ else
     u_b = ones(1,xdim)*15;
     l_b = ones(1,xdim)*0;
     % obj.objFunc = @ObjectiveFunc;  % name (or handle) of objective function 
-                                   % example : objFunc = @ZDT1
+    %                                % example : objFunc = @ZDT1
     obj.objNum = funcnum;          % output dimension of objective functions
     obj.dim = xdim;                % dimension of control variables                  
     obj.N = xnum;                  % size of swarm (or population)

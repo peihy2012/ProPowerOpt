@@ -3,8 +3,8 @@ classdef MODA < handle
     %   Detailed explanation goes here
     
     properties
-        objFunc % name (or handle) of objective function 
-                % example : objFunc = @ZDT1
+        % objFunc % name (or handle) of objective function 
+        %         % example : objFunc = @ZDT1
         objNum  % output dimension of objective functions
         X       % swarm (or set) of control variables (position)
         fitness % fitness of control variables
@@ -31,24 +31,25 @@ classdef MODA < handle
     end
     
     methods
-        function da = MODA(func, funcnum, xdim, xnum, gen)
+        function da = MODA(funcnum, xdim, xnum, gen)
+%             if nargin > 0
+%                 da.objFunc = func;
             if nargin > 0
-                da.objFunc = func;
+                da.objNum = funcnum;
                 if nargin > 1
-                    da.objNum = funcnum;
-                    if nargin > 2
-                        da.dim = xdim;
-                        if nargin > 3
-                            da.N = xnum;
-                            if nargin > 4
-                                da.maxGen = gen;
-                            end
+                    da.dim = xdim;
+                    if nargin > 3
+                        da.N = xnum;
+                        if nargin > 4
+                            da.maxGen = gen;
                         end
                     end
                 end
-            else
-                error('the objective function handle must be given.')
             end
+%             else
+%                 error('the objective function handle must be given.')
+%             end
+            
         end
         obj = init(obj, mopt);
         obj = getfront(obj);
