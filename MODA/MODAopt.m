@@ -34,22 +34,29 @@ ObjectiveFunction=@RPOF;
 mo = MODA();
 mo.init();
 t0 = clock;
+StoreF = zeros(mo.N,mo.objNum,100);
+% mkdir([cd,'\image']) 
+directory=[cd,'\image\'];
 for iter = 1:100
     t1 = clock;
     parfor it=1:mo.N 
         % mo.Particles_F(it,:) = ObjectiveFunction(mo.X(:,it)', pf, Snew);
         P_F(it,:) = ObjectiveFunction(mo.X(:,it)', pf, Snew);
     end
+    StoreF(:,:,iter) = P_F;
     mo.Particles_F = P_F;
     mo.getfront();
     mo.operation(iter);
     mo.plot(iter);
+    % saveas(gcf,[directory,'pred_prey'],'fig')
+    saveas(gcf,[directory,'Fig',num2str(1000+iter),'.fig'])
     t2 = etime(clock, t1);
     display(['Iteration = ', num2str(iter), ' , ', num2str(mo.ArchiveSize), ' non-dominated solutions , time = ', num2str(t2) , ' .']);
     pause(0.05);
 end
 t2 = etime(clock,t0);
 display([ 'time = ', num2str(t2) , ' .']);
-save moda_result mo
+save moda_result_0531 mo
+save StoreF_0531 StoreF
 end
 
