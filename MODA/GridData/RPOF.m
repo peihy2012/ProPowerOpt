@@ -3,20 +3,6 @@ function [ o ] = RPOF( X, pf, Snew )
 %   Detailed explanation goes here
 % pf = PowerFlowRadia(busdata33);
 simpleNum = 10000;
-% %% include Pwind and pwrSmp
-% load('Pwind_0512.mat');
-% load('pwrSmp_0512.mat');
-% windRate = 0.9;
-% windLoc = 24;
-% phi = acos(windRate);
-% Swind = Pwind.*(1+i*tan(phi));
-% pwrSmp(windLoc,:) = pwrSmp(windLoc,:) - Swind/4;
-% Snew = pwrSmp;
-% %% initialize
-% pf.makeYbus();
-% pf.makeSbus();
-% pf.initPowerflow();
-% global pf Snew
 nodeloc = [6 13 17 23 31];
 Qc = zeros(pf.nb,1);
 Qc(nodeloc) = round(X)*0.06*1j;
@@ -57,10 +43,10 @@ end
 
 % mean and std of power loss
 meanLoss = mean(spLoss,2);
-% stdLoss = std(spLoss,0,2);
+stdLoss = std(spLoss,0,2);
 % mean and std of voltage
 meanVm = mean(spVm,2);
-% stdVm = std(spVm,0,2);
+stdVm = std(spVm,0,2);
 
 
 [floss,xloss] = ksdensity( spLoss, 'npoints',1000,'function','pdf' );
@@ -82,7 +68,6 @@ plogp = -p .* log2(p);
 % entropy with deviation weight
 wH = sum( plogp.*w, 1);   
 
-
 xbw = (max(spLoss)-min(spLoss))/1000;
 p = floss'*xbw;
 p(find(p<1e-12)) = 1;
@@ -94,7 +79,7 @@ wHL = sum( plogp.*xloss', 1);
 
 cap = sum(round(X))*0.05;
 
-o = [sum(wHL), sum(wH) ,cap, meanLoss, mean(meanLoss)];
+o = [sum(wHL), sum(wH) ,cap, meanLoss, stdLoss,  sum(abs(meanVm-1)), sum(stdVm)];
 
 end
 

@@ -44,7 +44,7 @@ mo = MODA();
 mo.init();
 t0 = clock;
 % StoreF = zeros(mo.N,mo.objNum,100);
-StoreF = zeros(mo.N, 5);
+StoreF = zeros(mo.N, 7);
 % mkdir([cd,'\image']) 
 switch debugF
     case 0
@@ -54,8 +54,13 @@ switch debugF
     otherwise
         ObjectiveFunction = NULL;
 end
-
-
+%% Before optimization 
+P_Forgin = ObjectiveFunction(zeros(1,5), pf, Snew);
+%% Optimization
+outY = [];
+bestY = [];
+outX = [];
+bestX = [];
 for iter = 1:100
     t1 = clock;
     parfor it=1:mo.N 
@@ -71,6 +76,15 @@ for iter = 1:100
     saveas(gcf,[directory,'Fig',num2str(1000+iter),'.fig'])
     export_fig(gcf,[directory,'image/Fig_',num2str(1000+iter),'.eps']);
     [a1,b1]=eps2xxx([directory,'image/Fig_',num2str(1000+iter),'.eps'],{'png'});
+    % weight function
+    weightFunc = P_F(:,4)/P_Forgin(4) + P_F(:,5)/P_Forgin(5) + P_F(:,6)/P_Forgin(6) + P_F(:,7)/P_Forgin(7);
+    [outFunc, outIndex] = min(weightFunc);
+    outX = [outX; round(mo.X(:,outIndex)')];
+    outY = [outY; outFunc];
+    [bestYtemp, bestIndex] = min(outY);
+    bestX = [bestX, outX(bestIndex)];
+    bestY = [bestY, bestYtemp];
+    % print time
     t2 = etime(clock, t1);
     display(['Iteration = ', num2str(iter), ' , ', num2str(mo.ArchiveSize), ' non-dominated solutions , time = ', num2str(t2) , ' .']);
     pause(0.05);
@@ -79,11 +93,11 @@ t2 = etime(clock,t0);
 display([ 'time = ', num2str(t2) , ' .']);
 switch debugF
     case 0
-        save(['moda_result_F0_',date_str,'.mat'],'mo')
-        save(['StoreF_F0_',date_str,'.mat'],'StoreF')
+        save(['moda_result_F0_',date_str,'.mat'],'mo','StoreF','outY','outX','bestY','bestX','P_Forgin')
+%         save(['StoreF_F0_',date_str,'.mat'],'StoreF')
     case 1
-        save(['moda_result_F1_',date_str,'.mat'],'mo')
-        save(['StoreF_F1_',date_str,'.mat'],'StoreF')
+        save(['moda_result_F1_',date_str,'.mat'],'mo','StoreF')
+%         save(['StoreF_F1_',date_str,'.mat'],'StoreF')
 end
 
 end
