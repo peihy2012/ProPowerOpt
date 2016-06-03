@@ -24,7 +24,7 @@ indVc_Vn = (v>Vc).*(v<=Vn);
 indVn_Vo = (v>Vn).*(v<=Vo);
 P = zeros(size(v));
 Pv = f0(v);
-Pwind = P + Pv.*indVc_Vn + Pn*indVn_Vo;
+P = P + Pv.*indVc_Vn + Pn*indVn_Vo;
 %% wind power output rate cos(phi)=0.8 phi =acos(0.8)
 phi = acos(0.8);
 Swind = P.*(1+i*tan(phi));

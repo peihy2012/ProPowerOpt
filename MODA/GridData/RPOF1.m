@@ -22,5 +22,7 @@ spVm = spVm/pf.baseKV;
 o(1) = sum((spVm-1).^2);
 o(2) = spLoss;
 o(3) = sum(round(X))*0.05;
+o(4) = 0;
+o(5) = 0;
 end
 

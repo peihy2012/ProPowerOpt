@@ -54,6 +54,15 @@ for nbr = 1:pf.nb
     f(1,rangenum) = y;
     fden(nbr,:) = f;
 end
+
+% mean and std of power loss
+meanLoss = mean(spLoss,2);
+% stdLoss = std(spLoss,0,2);
+% mean and std of voltage
+meanVm = mean(spVm,2);
+% stdVm = std(spVm,0,2);
+
+
 [floss,xloss] = ksdensity( spLoss, 'npoints',1000,'function','pdf' );
 % delete(powerFlowPar);
 %% plot 
@@ -85,7 +94,7 @@ wHL = sum( plogp.*xloss', 1);
 
 cap = sum(round(X))*0.05;
 
-o = [sum(wHL), sum(wH) ,cap];
+o = [sum(wHL), sum(wH) ,cap, meanLoss, mean(meanLoss)];
 
 end
 
