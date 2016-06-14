@@ -1,7 +1,31 @@
-function [ o ] = RPOF( X, pf, Snew )
+function [ o ] = RPOF( X )
 %RPOF Summary of this function goes here
 %   Detailed explanation goes here
 % pf = PowerFlowRadia(busdata33);
+global cnt pf Snew
+if isempty(cnt)
+   cnt = 1;
+   addpath('.\GridData');
+   % global pf Snew
+   data33 = busdata33;
+   pf = PowerFlowRadia(data33);
+   sampleNum = 100000;
+   % include Pwind and pwrSmp
+   pwrSmp = powersample(sampleNum,data33.busdata);
+   Swind = windsample(sampleNum,1);
+   Ssolar = solarsample(sampleNum,1);
+   windLoc = [24];
+   solarLoc = [17];
+   pwrSmp(windLoc,:) = pwrSmp(windLoc,:) - Swind/4;
+   pwrSmp(solarLoc,:) = pwrSmp(solarLoc,:) - Ssolar/4;
+   Snew = pwrSmp;        
+   % initialize
+   pf.makeYbus();
+   pf.makeSbus();
+   pf.initPowerflow();
+
+   disp(['cnt=',num2str(cnt)])  
+end
 simpleNum = 10000;
 nodeloc = [6 13 17 23 31];
 Qc = zeros(pf.nb,1);
