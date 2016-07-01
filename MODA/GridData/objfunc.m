@@ -2,29 +2,29 @@ function [ o ] = objfunc( x )
 %OBJFUNC define the optimal objective functions
 %   use 'persistent' to define variables to avoid repeated calculation
 
-persistent cnt pf Snew
+persistent cnt pf  % Snew
 if isempty(cnt)
    cnt = 1;
 %    addpath('.\GridData');
    data33 = busdata33;
    pf = PowerFlowRadia(data33);
-   sampleNum = 100000;
-   % include Pwind and pwrSmp
-   pwrSmp = powersample(sampleNum,data33.busdata);
-   Swind = windsample(sampleNum,1);
-   Ssolar = solarsample(sampleNum,1);
-   windLoc = [24];
-   solarLoc = [17];
-   pwrSmp(windLoc,:) = pwrSmp(windLoc,:) - Swind/4;
-   pwrSmp(solarLoc,:) = pwrSmp(solarLoc,:) - Ssolar/4;
-   Snew = pwrSmp;        
+%    sampleNum = 100000;
+%    % include Pwind and pwrSmp
+%    pwrSmp = powersample(sampleNum,data33.busdata);
+%    Swind = windsample(sampleNum,1);
+%    Ssolar = solarsample(sampleNum,1);
+%    windLoc = [24];
+%    solarLoc = [17];
+%    pwrSmp(windLoc,:) = pwrSmp(windLoc,:) - Swind/4;
+%    pwrSmp(solarLoc,:) = pwrSmp(solarLoc,:) - Ssolar/4;
+%    Snew = pwrSmp;        
    % initialize
    pf.makeYbus();
    pf.makeSbus();
    pf.initPowerflow();
    disp(['initialization power flow times : cnt = ',num2str(cnt)])  
 end
-
+x = round(x);
 nodeloc = [5 13 20 23 31];
 Qc = zeros(pf.nb,1);
 Qc(nodeloc) = round(x)*0.05*1j;

@@ -12,6 +12,7 @@ classdef MOPSO < handle
         rep                   % Repository
         empty_particle        % Empty Particle to Initialize Pop
         % MOPSO Parameters
+        it = 1;               % Number of Iterations   
         MaxIt = 100;          % Maximum Number of Iterations
         nPop = 120;           % Population Size
         nRep = 100;           % Repository Size
@@ -37,6 +38,13 @@ classdef MOPSO < handle
         obj = init( obj, mopt, varargin );
         pop = DetermineDomination( obj, pop );
         obj = FindGridIndex( obj );
+        leader = SelectLeader( obj );
+        obj = update( obj );
+        i = RouletteWheelSelection( obj, P );
+        b = Dominates( obj, x, y );
+        xnew = Mutate( obj, x, pm, VarMin, VarMax);
+        obj = DeleteOneRepMemebr( obj );
+        plot( obj );
 %         obj = getfront(obj);
 %         obj = operation(obj,iter);
 %         plot(obj,iter,varargin);

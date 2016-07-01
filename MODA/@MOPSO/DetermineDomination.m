@@ -10,22 +10,14 @@ end
 
 for i = 1:nPop-1
     for j = i+1:nPop
-        if Dominates(pop(i),pop(j))
+        if obj.Dominates(pop(i),pop(j))
            pop(j).IsDominated = true;
         end
-        if Dominates(pop(j),pop(i))
+        if obj.Dominates(pop(j),pop(i))
            pop(i).IsDominated = true;
         end
     end
 end
 end
 %%
-function b = Dominates( x, y )
-    if isstruct(x)
-        x = x.Cost;
-    end
-    if isstruct(y)
-        y = y.Cost;
-    end
-    b = all( x<=y ) && any( x<y );
-end
+
