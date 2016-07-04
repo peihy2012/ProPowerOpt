@@ -19,45 +19,40 @@ function z=ZDTF(x)
 %         disp(['smp=',num2str(smp)])   
 %     end
 %     global cnt pf Snew
-    persistent cnt pf Snew
-    if isempty(cnt)
-       cnt = 1;
-       addpath('.\GridData');
-       % global pf Snew
-       data33 = busdata33;
-       pf = PowerFlowRadia(data33);
-       sampleNum = 100000;
-       % include Pwind and pwrSmp
-       pwrSmp = powersample(sampleNum,data33.busdata);
-       Swind = windsample(sampleNum,1);
-       Ssolar = solarsample(sampleNum,1);
-       windLoc = [24];
-       solarLoc = [17];
-       pwrSmp(windLoc,:) = pwrSmp(windLoc,:) - Swind/4;
-       pwrSmp(solarLoc,:) = pwrSmp(solarLoc,:) - Ssolar/4;
-       Snew = pwrSmp;        
-       % initialize
-       pf.makeYbus();
-       pf.makeSbus();
-       pf.initPowerflow();
-    
-       disp(['cnt=',num2str(cnt)])  
-    end
-    % disp(['inside function cnt = ',num2str(cnt)])
-    % disp(['inside function pf.nb = ',num2str(pf.nb)])
-    
-    n=numel(x);
+persistent cnt pf
+if isempty(cnt)
+   cnt = 1;
+   addpath('.\GridData');
+   % global pf Snew
+   data33 = busdata33;
+   pf = PowerFlowRadia(data33);   
+   % initialize
+   pf.makeYbus();
+   pf.makeSbus();
+   pf.initPowerflow();
 
-    f1=x(1);
-    
-    g=1+9/(n-1)*sum(x(2:end));
-    
-    h=1-sqrt(f1/g);
-    
-    f2=g*h;
-    f3=sum(cos(x));
-    z=[f1
-       f2 
-       f3];
+   disp(['cnt=',num2str(cnt)])  
+end
+x = round(x);
+nodeloc = [5 13 20 23 31];
+Qc = zeros(pf.nb,1);
+Qc(nodeloc) = round(x)*0.05*1j;
+%% power flow
+spVm = [];
+spVa = [];
+spLoss = [];
+
+pf1 = pf;
+pf1.Sbus = pf1.busdata(:,5) + j*pf1.busdata(:,6) - Qc;
+pf1.powerflow();
+pf1.powerloss();
+spVm = pf1.Vm; 
+spVa = pf1.Va; 
+spLoss = sum(pf1.loss);
+
+spVm = spVm/pf.baseKV;
+z(1,1) = sum((spVm-1).^2);
+z(2,1) = spLoss;
+z(3,1) = sum(round(x))*0.05;
 
 end

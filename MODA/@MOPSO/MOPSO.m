@@ -40,6 +40,7 @@ classdef MOPSO < handle
         obj = FindGridIndex( obj );
         leader = SelectLeader( obj );
         obj = update( obj );
+        [ obj ] = search( obj );
         i = RouletteWheelSelection( obj, P );
         b = Dominates( obj, x, y );
         xnew = Mutate( obj, x, pm, VarMin, VarMax);
