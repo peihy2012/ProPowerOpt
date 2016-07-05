@@ -8,6 +8,7 @@ if nargin > 1
     obj.lb = mopt.VarMin;              % Lower Bound of Variables
     obj.ub = mopt.VarMax;              % Upper Bound of Variables
     obj.MaxIt = mopt.MaxIt;            % Maximum Number of Iterations
+    obj.it = mopt.it;                  % Number of Iterations
     obj.GreyWolves_num = mopt.nPop;    % Population Size
     obj.Archive_size = mopt.nRep;      % Repository Size
     obj.nGrid = mopt.nGrid;            % Number of Grids per Dimension
@@ -22,6 +23,7 @@ else
     obj.lb = zeros(1,5);               % Lower Bound of Variables
     obj.ub = 15*ones(1,5);             % Upper Bound of Variables
     obj.MaxIt = 100;                   % Maximum Number of Iterations
+    obj.it = 1;                        % Number of Iterations
     obj.GreyWolves_num = 120;          % Population Size
     obj.Archive_size = 100;            % Repository Size
     obj.nGrid = 7;                     % Number of Grids per Dimension

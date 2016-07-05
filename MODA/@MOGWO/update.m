@@ -1,8 +1,13 @@
 function obj = update( obj )
 %UPDATE Summary of this function goes here
 %   Detailed explanation goes here
+a=2-obj.it*((2)/obj.MaxIt);
 
-for i=1:obj.GreyWolves_num
+Wolves.Position=[];
+Wolves.Cost=[];
+Wolves = repmat(Wolves,obj.GreyWolves_num,1);
+
+parfor i=1:obj.GreyWolves_num
     rep2 = repmat(obj.empty_particle,0,1);
     rep3 = repmat(obj.empty_particle,0,1);
     % Choose the alpha, beta, and delta grey wolves
@@ -66,14 +71,18 @@ for i=1:obj.GreyWolves_num
     A=2.*a.*rand()-a;
     % Eq.(3.10) in the paper
     X3=Alpha.Position-A.*abs(D);
-
+    
     % Eq.(3.11) in the paper
-    obj.GreyWolves(i).Position=(X1+X2+X3)./3;
-
+    Wolves(i).Position=(X1+X2+X3)./3;
     % Boundary checking
-    obj.GreyWolves(i).Position=min(max(obj.GreyWolves(i).Position,obj.lb),obj.ub);
+    Wolves(i).Position=min(max(Wolves(i).Position,obj.lb),obj.ub);
+    Wolves(i).Cost=obj.fobj(Wolves(i).Position);
+end
 
-    obj.GreyWolves(i).Cost=obj.fobj(obj.GreyWolves(i).Position')';
+for i=1:obj.GreyWolves_num
+    % Boundary checking
+    obj.GreyWolves(i).Position=Wolves(i).Position;
+    obj.GreyWolves(i).Cost=Wolves(i).Cost;
 %         rep2 = null;        
 %         rep3 = null;
 end

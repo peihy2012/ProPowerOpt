@@ -8,11 +8,29 @@ for i=1:numel(obj.Archive)
     obj.Archive(i).GridSubIndex=zeros(1,nobj);
     for j=1:nobj
         U=obj.G(j).Upper;
-        i=find(c(j)<U,1,'first');
-        obj.Archive(i).GridSubIndex(j)=i;
-        str=[str ',' num2str(i)];
+        ind=find(c(j)<U,1,'first');
+        obj.Archive(i).GridSubIndex(j)=ind;
+        str=[str ',' num2str(ind)];
     end
     str=[str ');'];
-    Archive(i).GridIndex=eval(str);
+    obj.Archive(i).GridIndex=eval(str);
 end
+% 
+% for i = 1:numel(obj.Archive)
+%     % obj.rep(i)=FindGridIndex(rep(i),Grid);
+%     nObj = numel(obj.Archive(i).Cost);
+%     nGrid = numel(obj.G(1).Upper);
+%     obj.Archive(i).GridSubIndex = zeros(1,nObj);
+%     for j = 1:nObj 
+%         obj.Archive(i).GridSubIndex(j)=...
+%             find( obj.Archive(i).Cost(j)<obj.G(j).Upper, 1, 'first');
+%     end
+%     obj.Archive(i).GridIndex = obj.Archive(i).GridSubIndex(1);
+%     for j = 2:nObj
+%         obj.Archive(i).GridIndex = obj.Archive(i).GridIndex - 1;
+%         obj.Archive(i).GridIndex = nGrid * obj.Archive(i).GridIndex;
+%         obj.Archive(i).GridIndex = obj.Archive(i).GridIndex + obj.Archive(i).GridSubIndex(j);
+%     end
+% end
+
 end

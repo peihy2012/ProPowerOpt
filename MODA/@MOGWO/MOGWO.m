@@ -31,11 +31,12 @@ classdef MOGWO < handle
         obj = CreateHypercubes( obj );
         obj = GetGridIndex( obj );
         dom = Dominates( obj, x, y );
-%         obj = search( obj );
+        obj = search( obj );
         obj = update( obj );
         rep_h = SelectLeader( obj, rep );
         [occ_cell_index occ_cell_member_count] = GetOccupiedCells( obj, pop );
         i = RouletteWheelSelection( obj, p );
+        rep = DeleteFromRep(obj,rep,EXTRA,gamma);
         
     end
     
