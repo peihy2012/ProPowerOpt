@@ -17,22 +17,22 @@ close all;
 addpath('..\GridData');
 %% Problem Definition
 % CostFunction=@(x) ZDT(x);      % Cost Function
-CostFunction=@(x) objfunc(x); 
-nVar=5;             % Number of Decision Variables
+CostFunction=@(x) objfunc_24(x); 
+nVar=5*24;             % Number of Decision Variables
 VarSize=[1 nVar];   % Size of Decision Variables Matrix
 VarMin=zeros(VarSize);          % Lower Bound of Variables
 VarMax=15*ones(VarSize);          % Upper Bound of Variables
 
 %% MOPSO Parameters
 MaxIt=100;           % Maximum Number of Iterations
-nPop=200;            % Population Size
-nRep=200;            % Repository Size
+nPop=120;            % Population Size
+nRep=100;            % Repository Size
 w=0.5;              % Inertia Weight
-wdamp=0.99;         % Intertia Weight Damping Rate
+wdamp=0.89;         % Intertia Weight Damping Rate
 c1=1;               % Personal Learning Coefficient
 c2=2;               % Global Learning Coefficient
 
-nGrid=7;            % Number of Grids per Dimension
+nGrid=10;            % Number of Grids per Dimension
 alpha=0.1;          % Inflation Rate
 
 beta=2;             % Leader Selection Pressure

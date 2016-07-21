@@ -2,7 +2,7 @@ function obj = init(obj, mopt, varargin);
 %INIT Summary of this function goes here
 %   Detailed explanation goes here
 if nargin > 1
-    obj.fobj = mopt.CostFunction;      % Cost Function
+    obj.fobj = mopt.fobj;              % Cost Function
     obj.nVar = mopt.nVar;              % Number of Decision Variables
     obj.VarSize = mopt.VarSize;        % Size of Decision Variables Matrix
     obj.lb = mopt.VarMin;              % Lower Bound of Variables
