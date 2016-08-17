@@ -13,8 +13,8 @@ psomopt.nPop = 100;                      % Population Size
 psomopt.nRep = 100;                      % Repository Size
 psomopt.w = 0.5;                         % Inertia Weight
 psomopt.wdamp = 0.98;                    % Intertia Weight Damping Rate
-psomopt.c1 = 1;                          % Personal Learning Coefficient
-psomopt.c2 = 2;                          % Global Learning Coefficient
+psomopt.c1 = 0.2;                          % Personal Learning Coefficient
+psomopt.c2 = 0.3;                          % Global Learning Coefficient
 psomopt.nGrid = 10;                      % Number of Grids per Dimension
 psomopt.alpha = 0.1;                     % Inflation Rate
 psomopt.beta = 2;                        % Leader Selection Pressure
@@ -44,7 +44,7 @@ gwomopt.gamma = 2;                      % Deletion Selection Pressure
 % mo_gwo.init(gwomopt);
 % mo_gwo.search();
 
-groupSize = 30;
+groupSize = 1;
 result.pso=[];
 result.gwo=[];
 mor = repmat(result,groupSize,1);
@@ -72,7 +72,8 @@ for gs = 1:groupSize
 end
 
 
-
-
-
-save mor mor
+str = datestr(now);
+str = strrep(str,' ','_');
+str = strrep(str,'-','_');
+str = strrep(str,':','_');
+save(['mo_result_',str],'mor')

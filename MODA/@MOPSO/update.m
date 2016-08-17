@@ -10,7 +10,7 @@ parfor i=1:obj.nPop
     temppop(i).Velocity = obj.w*obj.pop(i).Velocity ...
         +obj.c1*rand(obj.VarSize).*(obj.pop(i).Best.Position-obj.pop(i).Position) ...
         +obj.c2*rand(obj.VarSize).*(leader.Position-obj.pop(i).Position);
-    temppop(i).Velocity = 2 * temppop(i).Velocity / (obj.w + obj.c1 + obj.c2);
+%     temppop(i).Velocity = 2 * temppop(i).Velocity / (obj.w + obj.c1 + obj.c2);
     temppop(i).Position = obj.pop(i).Position + temppop(i).Velocity;
 
     temppop(i).Position = max(temppop(i).Position, obj.VarMin);

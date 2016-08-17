@@ -3,7 +3,7 @@ classdef MODA < handle
     %   Detailed explanation goes here
     
     properties
-        % objFunc % name (or handle) of objective function 
+        objFunc % name (or handle) of objective function 
         %         % example : objFunc = @ZDT1
         objNum  % output dimension of objective functions
         X       % swarm (or set) of control variables (position)
@@ -54,6 +54,7 @@ classdef MODA < handle
         obj = init(obj, mopt);
         obj = getfront(obj);
         obj = operation(obj,iter);
+        obj = search( obj );
         plot(obj,iter,varargin);
     end
     
