@@ -28,7 +28,7 @@ for tt = 1:obj.MaxIt
 %     obj.plot();
 %     pause(0.01);
 %     % % Show Iteration Information
-%     disp(['Iteration ' num2str(obj.it) ': Number of Rep Members = ' num2str(numel(obj.rep))]);
+    disp(['Iteration ' num2str(obj.it) ': Number of Rep = ' num2str(numel(obj.rep))]);
     % Damping Inertia Weight
     obj.w = obj.w * obj.wdamp;
 %     obj.w = 

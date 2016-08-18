@@ -28,7 +28,7 @@ for tt = 1:obj.MaxIt
 %         G=CreateHypercubes(Archive_costs,nGrid,alpha);
     end
 %     
-%     disp(['In iteration ' num2str(obj.it) ': Number of solutions in the archive = ' num2str(numel(obj.Archive))]);
+    disp(['In iteration ' num2str(obj.it) ': Number of archive = ' num2str(numel(obj.Archive))]);
 % %     save results 
 %     % Results   
 % %     costs=GetCosts(GreyWolves);

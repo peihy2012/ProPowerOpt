@@ -11,6 +11,8 @@ for iter = 1:obj.maxGen
     obj.Particles_F = P_F(:,[1:3]);
     obj.getfront();
     obj.operation(iter);
+    
+    disp(['Iteration ' ,num2str(iter) ]);
 end
 
 end
