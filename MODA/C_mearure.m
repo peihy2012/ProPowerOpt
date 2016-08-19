@@ -58,23 +58,20 @@
 % load('mo_result_18_Aug_2016_12_10_04.mat')
 % gridPath = '.\GridData';
 % addpath(gridPath);
+R = struct2cell(mor);
+Names = fieldnames(mor);
+N = numel(R);
+Cmeasure = [];
+for m = 1:N
+    for n = 1:N
+        if m == n
+            Cmeasure(m,n) = 0;
+        else
+            Cmeasure(m,n) = Cm(R{m},R{n});
+        end
+    end
+end
 
-
-c1(1) = Cm(mor.gwo, mor.pso);
-c1(2) = Cm(mor.gwo, mor.ead);
-c1(3) = Cm(mor.gwo, mor.spea);
-
-c1(4) = Cm(mor.pso, mor.gwo);
-c1(5) = Cm(mor.pso, mor.ead);
-c1(6) = Cm(mor.pso, mor.spea);
-
-c1(7) = Cm(mor.ead, mor.gwo);
-c1(8) = Cm(mor.ead, mor.pso);
-c1(9) = Cm(mor.ead, mor.spea);
-
-c1(10) = Cm(mor.spea, mor.gwo);
-c1(11) = Cm(mor.spea, mor.pso);
-c1(12) = Cm(mor.spea, mor.ead);
 
 
 

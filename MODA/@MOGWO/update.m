@@ -7,7 +7,7 @@ Wolves.Position=[];
 Wolves.Cost=[];
 Wolves = repmat(Wolves,obj.GreyWolves_num,1);
 
-parfor i=1:obj.GreyWolves_num
+for i=1:obj.GreyWolves_num
     rep2 = repmat(obj.empty_particle,0,1);
     rep3 = repmat(obj.empty_particle,0,1);
     % Choose the alpha, beta, and delta grey wolves

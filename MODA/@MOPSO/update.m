@@ -3,10 +3,9 @@ function [ obj ] = update( obj )
 %   Detailed explanation goes here
 temppop = obj.pop;
 
-parfor i=1:obj.nPop
+for i=1:obj.nPop
     % select leader for one particle
     leader=obj.SelectLeader();
-
     temppop(i).Velocity = obj.w*obj.pop(i).Velocity ...
         +obj.c1*rand(obj.VarSize).*(obj.pop(i).Best.Position-obj.pop(i).Position) ...
         +obj.c2*rand(obj.VarSize).*(leader.Position-obj.pop(i).Position);

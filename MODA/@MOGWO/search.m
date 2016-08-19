@@ -34,15 +34,15 @@ for tt = 1:obj.MaxIt
 % %     costs=GetCosts(GreyWolves);
 % %     Archive_costs=GetCosts(Archive); 
 % %     if drawing_flag==1
-%         costs=[obj.GreyWolves.Cost];
-%         plot3(costs(1,:),costs(2,:),costs(3,:),'k.');
-%         hold on;
-%         Archive_costs=[obj.Archive.Cost];
-%         plot3(Archive_costs(1,:),Archive_costs(2,:),Archive_costs(3,:),'rd');
-% %         legend('Grey wolves','Non-dominated solutions');
-%         grid;
-%         drawnow
-%         hold off
+        costs=[obj.GreyWolves.Cost];
+        plot3(costs(1,:),costs(2,:),costs(3,:),'k.');
+        hold on;
+        Archive_costs=[obj.Archive.Cost];
+        plot3(Archive_costs(1,:),Archive_costs(2,:),Archive_costs(3,:),'rd');
+%         legend('Grey wolves','Non-dominated solutions');
+        grid;
+        drawnow
+        hold off
 % %     end
     
 end
